@@ -19,19 +19,19 @@
 
     </header>
 
-    <div class="nav">
-        <nav>
-            <a href="#">Todas las películas</a>
-            <a href="#">Drama</a>
-            <a href="#">Comedia</a>
-            <a href="#">Romance</a>
-            <a href="#">Accion</a>
-            <a href="#">Terror</a>
-            <a href="#">Clásicos</a>
-            <a href="#">Internacional</a>
+   <div class="nav">
+    <nav>
+        <a href="#" data-category="todas">Todas las películas</a>
+        <a href="#" data-category="drama">Drama</a>
+        <a href="#" data-category="comedia">Comedia</a>
+        <a href="#" data-category="romance">Romance</a>
+        <a href="#" data-category="accion">Accion</a>
+        <a href="#" data-category="terror">Terror</a>
+        <a href="#" data-category="clasicos">Clásicos</a>
+        <a href="#" data-category="internacional">Internacional</a>
+    </nav>
+</div>
 
-        </nav>
-    </div>
     <section class="hero">
         <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/316b5eb077-b50fa97e3a132f814aa8.png" alt="">
     </section>
@@ -48,7 +48,7 @@
         </div>
 
         <div class="cards" id="cardContainer">
-            <div class="card" data-title="y tu mama tambien">
+            <div class="card" data-title="Rapidos y Furiosos" data-category="accion">
                 <img class="movie-img"
                     src="https://m.media-amazon.com/images/M/MV5BZDQzMTEzYzktNjhjNC00N2IwLWIzN2ItMGQ1MjBkNGNhY2VmXkEyXkFqcGc@._V1_.jpg"
                     alt="Rapidos y Furiosos">
@@ -56,7 +56,7 @@
                 <p>Brian O'Conner, quien nuevamente trabaja para el FBI en Los Ángeles, se une a Dominic Toretto para
                     detener a un traficante de heroína infiltrándose en su operación..</p>
             </div>
-            <div class="card" data-title="desaparecidos">
+            <div class="card" data-title="desaparecidos" data-category="drama">
                 <img class="movie-img"
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEt2hUsUIpAltGw2ectuOMYzprdxZe-jQaZg&s"
                     alt="Desaparecidos">
@@ -64,14 +64,14 @@
                 <p>Un thriller político que sigue la búsqueda de un periodista por su hermano desaparecido durante el
                     golpe militar en Chile de 1973.</p>
             </div>
-            <div class="card" data-title="la purga">
+            <div class="card" data-title="la purga" data-category="terror">
                 <img class="movie-img"
                     src="https://es.web.img3.acsta.net/pictures/210/066/21006675_20130517095253501.jpg" alt="La Purga">
                 <h4>La Purga</h4>
                 <p>En un futuro distópico, una familia debe sobrevivir a una noche donde todos los crímenes son legales,
                     enfrentándose a sus peores pesadillas.</p>
             </div>
-            <div class="card" data-title="smile">
+            <div class="card" data-title="smile" data-category="terror">
                 <img class="movie-img"
                     src="https://play-lh.googleusercontent.com/BMTuVesiVwCccDZqTAOBHOswAxlnwWwq_J9XBuqOuExRNCPID8iBr1Qd10cY_9nEsjevodJMRlHuiMkMGpk"
                     alt="Smile">
@@ -116,7 +116,7 @@
         </div>
     </footer>
 
-    <script>
+    <!-- <script>
         function buscar() {
             let input = document.getElementById("searchInput").value.toLowerCase();
             let cinema = document.querySelector(".cinema");
@@ -148,7 +148,68 @@
             }
         }
         document.getElementById("searchInput").addEventListener("keyup", buscar);
-    </script>
+    </script> -->
+<script>
+    function buscar() {
+        let input = document.getElementById("searchInput").value.toLowerCase();
+        let cinema = document.querySelector(".cinema");
+        let cards = document.querySelectorAll("#cardContainer .card");
+        let heroImg = document.querySelector(".hero img");
+
+        let hayResultados = false;
+
+        cards.forEach(card => {
+            let text = card.innerText.toLowerCase();
+            if (text.includes(input) && input !== "") {
+                card.style.display = "block";
+                hayResultados = true;
+            } else if (input === "") {
+                card.style.display = "block";
+            } else {
+                card.style.display = "none";
+            }
+        });
+
+        if (input === "") {
+            heroImg.style.display = "block";
+            cinema.style.display = "flex";
+        } else {
+            heroImg.style.display = "none";
+            cinema.style.display = "none";
+        }
+    }
+    document.getElementById("searchInput").addEventListener("keyup", buscar);
+
+    // 🎬 Filtrado por categorías
+    const navLinks = document.querySelectorAll(".nav a");
+    navLinks.forEach(link => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault(); // evita que se recargue la página
+            let category = link.getAttribute("data-category");
+            let cards = document.querySelectorAll("#cardContainer .card");
+
+            cards.forEach(card => {
+                if (category === "todas" || card.getAttribute("data-category") === category) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+
+            // ocultar hero y cinema si no es "todas"
+            let heroImg = document.querySelector(".hero img");
+            let cinema = document.querySelector(".cinema");
+
+            if (category === "todas") {
+                heroImg.style.display = "block";
+                cinema.style.display = "flex";
+            } else {
+                heroImg.style.display = "none";
+                cinema.style.display = "none";
+            }
+        });
+    });
+</script>
 
 </body>
 
