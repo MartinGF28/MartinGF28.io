@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página con Buscador</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1>CinemaMap México</h1>
+
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Buscar...">
+            <button onclick="buscar()">🔍</button>
+        </div>
+
+    </header>
+
+    <div class="nav">
+        <nav>
+            <a href="#">Todas las películas</a>
+            <a href="#">Drama</a>
+            <a href="#">Comedia</a>
+            <a href="#">Romance</a>
+            <a href="#">Accion</a>
+            <a href="#">Terror</a>
+            <a href="#">Clásicos</a>
+            <a href="#">Internacional</a>
+
+        </nav>
+    </div>
+    <section class="hero">
+        <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/316b5eb077-b50fa97e3a132f814aa8.png" alt="">
+    </section>
+
+    <section class="cinema">
+        <h2>Descubre el Cine en la Capital</h2>
+        <p>Ciudad de México ha sido escenario de cientos de producciones cinematográficas</p>
+    </section>
+
+    <section class="section-destacadas">
+        <div class="title-detacadas">
+            <h3>Películas Destacadas</h3>
+            <p>Explora las producciones más icónicas filmadas en la ciudad</p>
+        </div>
+
+        <div class="cards" id="cardContainer">
+            <div class="card" data-title="y tu mama tambien">
+                <img class="movie-img"
+                    src="https://m.media-amazon.com/images/M/MV5BZDQzMTEzYzktNjhjNC00N2IwLWIzN2ItMGQ1MjBkNGNhY2VmXkEyXkFqcGc@._V1_.jpg"
+                    alt="Rapidos y Furiosos">
+                <h4>Rapidos y Furiosos</h4>
+                <p>Brian O'Conner, quien nuevamente trabaja para el FBI en Los Ángeles, se une a Dominic Toretto para
+                    detener a un traficante de heroína infiltrándose en su operación..</p>
+            </div>
+            <div class="card" data-title="desaparecidos">
+                <img class="movie-img"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEt2hUsUIpAltGw2ectuOMYzprdxZe-jQaZg&s"
+                    alt="Desaparecidos">
+                <h4>Desaparecidos</h4>
+                <p>Un thriller político que sigue la búsqueda de un periodista por su hermano desaparecido durante el
+                    golpe militar en Chile de 1973.</p>
+            </div>
+            <div class="card" data-title="la purga">
+                <img class="movie-img"
+                    src="https://es.web.img3.acsta.net/pictures/210/066/21006675_20130517095253501.jpg" alt="La Purga">
+                <h4>La Purga</h4>
+                <p>En un futuro distópico, una familia debe sobrevivir a una noche donde todos los crímenes son legales,
+                    enfrentándose a sus peores pesadillas.</p>
+            </div>
+            <div class="card" data-title="smile">
+                <img class="movie-img"
+                    src="https://play-lh.googleusercontent.com/BMTuVesiVwCccDZqTAOBHOswAxlnwWwq_J9XBuqOuExRNCPID8iBr1Qd10cY_9nEsjevodJMRlHuiMkMGpk"
+                    alt="Smile">
+                <h4>Smile</h4>
+                <p>Después de presenciar un incidente traumático, una doctora comienza a experimentar sucesos
+                    aterradores que no puede explicar.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div>
+            <h4>CinemaMap México</h4>
+            <p>Descubre las locaciones cinematográficas más emblemáticas de la Ciudad de México.</p>
+        </div>
+        <div>
+            <h4>Explorar</h4>
+            <ul>
+                <li><a href="#">Todas las películas</a></li>
+                <li><a href="#">Por género</a></li>
+                <li><a href="#">Por década</a></li>
+                <li><a href="#">Locaciones populares</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4>Recursos</h4>
+            <ul>
+                <li><a href="#">Guía de usuario</a></li>
+                <li><a href="#">API</a></li>
+                <li><a href="#">Contribuir</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4>Legal</h4>
+            <ul>
+                <li><a href="#">Terminos de uso</a></li>
+                <li><a href="#">Privacidad</a></li>
+                <li><a href="#">Cookies</a></li>
+                <li><a href="#">Licencias</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script>
+        function buscar() {
+            let input = document.getElementById("searchInput").value.toLowerCase();
+            let cinema = document.querySelector(".cinema");
+            let cards = document.querySelectorAll("#cardContainer .card");
+            let heroImg = document.querySelector(".hero img");
+
+            let hayResultados = false;
+
+            cards.forEach(card => {
+                let text = card.innerText.toLowerCase();
+                if (text.includes(input) && input !== "") {
+                    card.style.display = "block";
+                    hayResultados = true;
+                } else if (input === "") {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+
+            if (input === "") {
+                heroImg.style.display = "block";
+                cinema.style.display = "flex";
+            } else {
+                heroImg.style.display = "none";
+                cinema.style.display = "none";
+
+
+            }
+        }
+        document.getElementById("searchInput").addEventListener("keyup", buscar);
+    </script>
+
+</body>
+
+</html>
